@@ -1,38 +1,28 @@
 (set-env!
  :source-paths #{"src"}
- :dependencies '[[spyscope "0.1.5" :scope "test"]
-                 [degree9/boot-semver "1.2.4" :scope "test"]
-                 [adzerk/bootlaces "0.1.13" :scope "test"]])
+ :dependencies '[[degree9/boot-semver "1.6.0" :scope "test"]])
 
-(require '[adzerk.bootlaces :refer [bootlaces! build-jar]]
-         '[boot-semver.core :refer :all])
+(require '[boot-semver.core :refer :all])
 
-(def +version+ (get-version))
-
-(task-options! pom {:project 'replumb/boot-pack-source
-                    :version +version+
+(task-options! pom {:project 'powerlaces/boot-sources
                     :description "Boot task that collects and stores Clojure(Script) source files."
-                    :url "https://github.com/Lambda-X/boot-pack-source"
-                    :scm {:url "https://github.com/Lambda-X/boot-pack-source.git"}
+                    :url "https://github.com/boot-clj/boot-sources"
+                    :scm {:url "https://github.com/boot-clj/boot-sources.git"}
                     :license {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}})
 
-(bootlaces! +version+)
 
 (ns-unmap 'boot.user 'test)
 
 ;; -- My Tasks --------------------------------------------
 
-(deftask deps [])
-
-(deftask build []
-  (build-jar))
-
-(deftask deploy []
+(deftask deploy
+  "Build boot-sources and deploy to clojars."
+  []
   (comp
-   (build)
-   (push :repo "clojars"
-         :gpg-sign (not (.endsWith +version+ "-SNAPSHOT"))
-         :ensure-clean false)))
+   (version)
+   (target)
+   (build-jar)
+   (push-release)))
 
 (deftask set-dev! []
   (set-env! :source-paths #(conj % "test")

@@ -1,4 +1,4 @@
-(ns replumb.boot-pack-source
+(ns powerlaces.boot-sources
   {:boot/export-tasks true}
   (:require [clojure.string :as string]
             [boot.core :as core :refer [boot]]

@@ -2,7 +2,7 @@
 
 [](dependency)
 ```clojure
-[replumb/boot-pack-source "0.1.2-1"] ;; latest release
+[powerlaces/boot-sources "0.1.2-1"] ;; latest release
 ```
 [](/dependency)
 
@@ -55,12 +55,4 @@ freely hack away.
 Distributed under the Eclipse Public License, the same as Clojure.
 
 Copyright (C) 2016 Andrea Richiardi & Scalac Sp. z o.o.
-
-## LambdaX
-
-Putting (defn) back into programming
-
-We are a Clojure-centric software house.
-Functional experts dedicated to Clojure and ClojureScript.
-
-[lambdax.io](http://lambdax.io/?utm_source=scalac_github&utm_campaign=scalac1&utm_medium=web)
+Copyright (C) 2017 Andrea Richiardi

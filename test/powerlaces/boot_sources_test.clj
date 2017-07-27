@@ -1,7 +1,7 @@
-(ns replumb.boot-pack-source-test
+(ns powerlaces.boot-sources-test
   (:require [clojure.test :refer :all]
             [boot.util :as util]
-            [replumb.boot-pack-source :refer :all]))
+            [powerlaces.boot-sources :refer :all]))
 
 (declare test-fileset test-deps)
 
