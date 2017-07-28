@@ -24,7 +24,8 @@
    (build-jar)))
 
 (deftask install-snapshot
-  "Install the artifact to the local .m2 but always using a SNAPSHOT version."
+  "Install the artifact to the local .m2 but always using a SNAPSHOT version.
+Note that this task does not modify version.properties."
   []
   (comp
    (version :develop true
