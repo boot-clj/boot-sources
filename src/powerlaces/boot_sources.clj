@@ -109,7 +109,7 @@
   intact the original namespace structure.
 
   Currently only the \"compile\" scope is taken into consideration and in case
-  the deps parameter is missing, the task will use (:dependencies (get-env))
+  no :dependencies is present, the task will use (:dependencies (get-env))
 
   The default inclusion set is #{#\".clj$\" #\".cljs$\" #\".cljc$\" #\".js$\"
   whereas the default exclusion set is #{#\"project.clj\"}. If you provide the
@@ -117,15 +117,15 @@
 
   Exclusions is a set of symbols which will completely discard a dependency,
   transitive dependencies included."
-  [t to-dir     DIR     str          "The dir to materialize source files into."
-   d deps       DEPVEC  #{[sym str]} "The dependency vector to pack."
-   x exclusions DEP     #{sym}       "The dependency symbol to exclude explicitly."
-   i include    MATCH   #{regex}     "The set of regexes that paths must match."
-   e exclude    MATCH   #{regex}     "The set of regexes that paths must NOT match."]
+  [t to-dir       DIR     str          "The dir to materialize source files into."
+   d dependencies SYM:VER #{[sym str]} "The dependency vector to pack."
+   x exclusions   DEP     #{sym}       "The dependency symbol to exclude explicitly."
+   i include      MATCH   #{regex}     "The set of regexes that paths must match."
+   e exclude      MATCH   #{regex}     "The set of regexes that paths must NOT match."]
   (let [dest-dir (or to-dir "clj-src")
         env (update (core/get-env) :dependencies
                     (fn [old-deps]
-                      (->> (vec (or deps old-deps))
+                      (->> (vec (or dependencies old-deps))
                            (map util/dep-as-map)
                            (filter include-dependency?)
                            (map map-as-dep)
@@ -146,9 +146,9 @@
 
 (comment
   (reset! util/*verbosity* 0)
-  (boot (pack-source :deps #{['org.clojure/clojurescript "1.8.34"]}) (built-in/show :fileset true))
+  (boot (pack-source :dependencies #{['org.clojure/clojurescript "1.8.34"]}) (built-in/show :fileset true))
 
-  (boot (pack-source :deps #{['org.clojure/clojurescript "1.8.34"]}
+  (boot (pack-source :dependencies #{['org.clojure/clojurescript "1.8.34"]}
                      :exclude #{#"project.clj"
                                 #"third_party\/closure\/.*base.js$"
                                 #"third_party\/closure\/.*deps.js$"}

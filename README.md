@@ -19,19 +19,23 @@ The simplest way is to include `pack-source` in your task chain.
 For instance from the command line:
 
 ```
-boot cljs sass pack-source -d "packed-src"
+boot cljs sass pack-source -d "org.clojure/clojurescript:1.8.34" target
 ```
+
+If you look in the `target` folder you will see that a `clj-src` has been
+created (the default if you don't specify `:to-dir`) and it now contains the
+ClojureScript sources.
 
 As usual, `boot pack-source -h` shows you the option summary.
 
-Note that if you don't specify `-d|--deps`, the current `(get-env)` will be
-queried and all the dependencies in `build.boot` will be included.
+Note that if you don't specify `-d|--dependencies`, the current `(get-env)`
+will be queried and all the dependencies in `build.boot` will be included.
 
 This time in the repl, another example that dumps everything to the `target`
 folder:
 
 ```
-(boot (pack-source :deps #{['org.clojure/clojurescript "1.8.34"]}
+(boot (pack-source :dependencies #{['org.clojure/clojurescript "1.8.34"]}
                    :exclude #{#"project.clj"
                               #"third_party\/closure\/.*base.js$"
                               #"third_party\/closure\/.*deps.js$"
