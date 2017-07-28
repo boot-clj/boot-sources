@@ -1,26 +1,43 @@
 (set-env!
- :source-paths #{"src"}
+ :resource-paths #{"src"}
  :dependencies '[[degree9/boot-semver "1.6.0" :scope "test"]])
 
-(require '[boot-semver.core :refer :all])
+(require '[degree9.boot-semver :refer :all])
 
 (task-options! pom {:project 'powerlaces/boot-sources
-                    :description "Boot task that collects and stores Clojure(Script) source files."
+                    :description "Boot tasks to move, collect, manage source files."
                     :url "https://github.com/boot-clj/boot-sources"
                     :scm {:url "https://github.com/boot-clj/boot-sources.git"}
                     :license {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}})
 
 
 (ns-unmap 'boot.user 'test)
+(ns-unmap 'boot.user 'install)
 
 ;; -- My Tasks --------------------------------------------
 
-(deftask deploy
-  "Build boot-sources and deploy to clojars."
+(deftask install
+  "Install the artifact to the local .m2."
   []
   (comp
    (version)
-   (target)
+   (build-jar)))
+
+(deftask install-snapshot
+  "Install the artifact to the local .m2 but always using a SNAPSHOT version."
+  []
+  (comp
+   (version :develop true
+            :minor 'inc
+            :patch 'zero
+            :pre-release 'snapshot)
+   (build-jar)))
+
+(deftask deploy
+  "Build boot-sources and deploy to Clojars."
+  []
+  (comp
+   (version)
    (build-jar)
    (push-release)))
 

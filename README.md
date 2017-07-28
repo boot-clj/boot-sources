@@ -1,17 +1,13 @@
-# boot-pack-source
+# boot-sources
+[![Clojars Project](https://img.shields.io/clojars/v/powerlaces/boot-sources.svg)](https://clojars.org/powerlaces/boot-sources)
 
-[](dependency)
+Boot tasks that collects source files `#{.clj .cljs .cljc .js}` and do
+something with them.
+
 ```clojure
-[powerlaces/boot-sources "0.1.2-1"] ;; latest release
+(set-env! :dependencies '[[powerlaces/boot-sources "X.Y.Z" :scope "test"]])
+(require '[powerlaces.boot-sources :refer :all])
 ```
-[](/dependency)
-
-Boot task that collects source files `#{.clj .cljs .cljc .js}` and copies them
-in `to-dir`.
-
-This is particularly useful for
-[self-hosted REPL](https://github.com/Lambda-X/replumb) apps, which requires
-(pun intended) them in order to work properly.
 
 ## Usage
 
@@ -36,19 +32,24 @@ will be queried and all the dependencies in `build.boot` will be included.
 This time in the repl, another example that dumps everything to the `target`
 folder:
 
-```
-(boot (pack-source :dependencies #{['org.clojure/clojurescript "1.8.34"]}
-                   :exclude #{#"project.clj"
-                              #"third_party\/closure\/.*base.js$"
-                              #"third_party\/closure\/.*deps.js$"
-                              #"org\/clojure\/clojure\/.*$"}
-                   :exclusions '#{org.clojure/clojure
-                                  org.mozilla/rhino})
+```clojure
+(require '[powerlaces.boot-sources :refer [pack-sources]])
+
+(boot (pack-sources :dependencies #{['org.clojure/clojurescript "1.8.34"]}
+                    :exclude #{#"project.clj"
+                               #"third_party\/closure\/.*base.js$"
+                               #"third_party\/closure\/.*deps.js$"
+                               #"org\/clojure\/clojure\/.*$"}
+                    :exclusions '#{org.clojure/clojure
+                                   org.mozilla/rhino})
       (built-in/target))
 ```
 
-For more info on why you would need this see the following blog post:
-http://lambdax.io/blog/posts/2015-12-21-cljs-replumb-require.html
+This is particularly useful for
+[self-hosted REPL](https://github.com/Lambda-X/replumb) apps, which requires
+(pun intended) source files along with the deployed app in order to work
+properly. For more info see
+[here](http://lambdax.io/blog/posts/2015-12-21-cljs-replumb-require.html).
   
 ## Contributing
 
