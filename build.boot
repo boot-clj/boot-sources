@@ -43,7 +43,8 @@
 
 (deftask set-dev! []
   (set-env! :source-paths #(conj % "test")
-            :dependencies #(into % '[[adzerk/boot-test "1.1.1" :scope "test"]]))
+            :dependencies #(into % '[[adzerk/boot-test "RELEASE" :scope "test"]
+                                     [boot/core "RELEASE"]]))
   (require 'adzerk.boot-test))
 
 (deftask test
