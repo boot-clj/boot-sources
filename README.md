@@ -59,7 +59,9 @@ freely hack away.
 
 ## License
 
+Copyright &copy; 2016 Andrea Richiardi & Scalac Sp. z o.o.<br/>
+Copyright &copy; 2017 Andrea Richiardi
+
 Distributed under the Eclipse Public License, the same as Clojure.
 
-Copyright (C) 2016 Andrea Richiardi & Scalac Sp. z o.o.
-Copyright (C) 2017 Andrea Richiardi
+
