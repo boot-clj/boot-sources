@@ -15,18 +15,20 @@ This is particularly useful for
 
 ## Usage
 
-The simplest way is to include `pack-source` in your task chain.
-For instance from the command line:
+#### pack-sources
+
+Include `pack-sources` at any point of your task chain. For instance from the
+command line:
 
 ```
-boot cljs sass pack-source -d "org.clojure/clojurescript:1.8.34" target
+boot cljs sass pack-sources -d "org.clojure/clojurescript:1.8.34" target
 ```
 
-If you look in the `target` folder you will see that a `clj-src` has been
+If you look in the `target` folder you will see that a `clj-src` dir has been
 created (the default if you don't specify `:to-dir`) and it now contains the
 ClojureScript sources.
 
-As usual, `boot pack-source -h` shows you the option summary.
+As usual, `boot pack-sources -h` shows you the option summary.
 
 Note that if you don't specify `-d|--dependencies`, the current `(get-env)`
 will be queried and all the dependencies in `build.boot` will be included.

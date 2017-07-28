@@ -101,7 +101,7 @@
   "Entries matching these Patterns will not be included."
   #{#"project.clj"})
 
-(core/deftask pack-source
+(core/deftask pack-sources
   "Add the relevant source files from the project dependencies.
 
   Specifically, this task moves all the clj, cljs, cljc and js files to the
@@ -146,9 +146,9 @@
 
 (comment
   (reset! util/*verbosity* 0)
-  (boot (pack-source :dependencies #{['org.clojure/clojurescript "1.8.34"]}) (built-in/show :fileset true))
+  (boot (pack-sources :dependencies #{['org.clojure/clojurescript "1.8.34"]}) (built-in/show :fileset true))
 
-  (boot (pack-source :dependencies #{['org.clojure/clojurescript "1.8.34"]}
+  (boot (pack-sources :dependencies #{['org.clojure/clojurescript "1.8.34"]}
                      :exclude #{#"project.clj"
                                 #"third_party\/closure\/.*base.js$"
                                 #"third_party\/closure\/.*deps.js$"}
